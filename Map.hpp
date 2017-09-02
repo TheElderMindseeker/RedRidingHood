@@ -10,9 +10,9 @@
 
 
 class Map {
-    friend class MapGenerator;
-
 public:
+    Map(unsigned width, unsigned height);
+
     /**
      * Checks if the given cell is present on the map
      *
@@ -100,6 +100,10 @@ public:
      * @return True if granny is in the position, false otherwise
      */
     bool is_granny(std::pair<int, int> position);
+
+private:
+    unsigned width;
+    unsigned height;
 };
 
 
