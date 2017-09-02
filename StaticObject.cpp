@@ -5,33 +5,52 @@
 #include "StaticObject.hpp"
 
 
+StaticObject::StaticObject() {
+    position = std::pair<int, int>(0, 0);
+}
+
+
+StaticObject::StaticObject(std::pair<int, int> position) {
+    this->position = position;
+}
+
+
+void StaticObject::set_position(std::pair<int, int> new_pos) {
+    position = new_pos;
+}
+
+
 void StaticObject::set_position(int x, int y) {
-    x_pos = x;
-    y_pos = y;
+    position = std::pair<int, int>(x, y);
 }
 
 
 void StaticObject::set_x(int x) {
-    x_pos = x;
+    position.first = x;
 }
 
 
 void StaticObject::set_y(int y) {
-    y_pos = y;
+    position.second = y;
+}
+
+
+std::pair<int, int> StaticObject::get_position() {
+    return position;
 }
 
 
 void StaticObject::get_position(int &x, int &y) {
-    x = x_pos;
-    y = y_pos;
+    x = position.first;
+    y = position.second;
 }
 
 
 int StaticObject::get_x() {
-    return x_pos;
+    return position.first;
 }
 
 
 int StaticObject::get_y() {
-    return y_pos;
+    return position.second;
 }
