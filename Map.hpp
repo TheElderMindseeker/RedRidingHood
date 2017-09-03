@@ -7,12 +7,17 @@
 
 
 #include <utility>
+#include <random>
 #include "agent/Agent.hpp"
+#include "static_object/Bear.hpp"
+#include "static_object/Woodcutter.hpp"
+#include "static_object/Wolf.hpp"
+#include "static_object/Granny.hpp"
 
 
 class Map {
 public:
-    Map(unsigned width, unsigned height);
+    Map(unsigned width, unsigned height, unsigned seed = 24623);
 
     /**
      * Checks if the given cell is present on the map
@@ -128,6 +133,18 @@ public:
 private:
     unsigned width;
     unsigned height;
+
+    Bear *bear;
+    Granny *granny;
+    Wolf *wolf;
+    Woodcutter *woodcutter;
+
+    StaticObject *objects[4];
+
+    std::pair<int, int> alt_woodcutter_position;
+
+    std::default_random_engine random_engine;
+    std::uniform_int_distribution<unsigned> distribution;
 };
 
 

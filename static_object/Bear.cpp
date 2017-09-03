@@ -19,6 +19,6 @@ void Bear::reaction(Agent *agent) {
 bool Bear::is_in_range(std::pair<int, int> position) {
     unsigned distance = static_cast<unsigned int>(
             (this->position.first - position.first) * (this->position.first - position.first) +
-                (this->position.second - position.second) * (this->position.second - position.second));
+            (this->position.second - position.second) * (this->position.second - position.second));
     return distance <= 2;
 }
