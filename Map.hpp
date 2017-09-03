@@ -7,6 +7,7 @@
 
 
 #include <utility>
+#include "agent/Agent.hpp"
 
 
 class Map {
@@ -94,12 +95,35 @@ public:
     bool is_woodcutter(std::pair<int, int> position);
 
     /**
+     * Tells two possible woodcutter positions
+     *
+     * @param pos_1 Variable to save first possible woodcutter position
+     * @param pos_2 Variable to save second possible woodcutter position
+     */
+    void get_possible_woodcutter_positions(std::pair<int, int> &pos_1, std::pair<int, int> &pos_2);
+
+    /**
      * Checks if granny is in provided position
      *
      * @param position Provided position
      * @return True if granny is in the position, false otherwise
      */
     bool is_granny(std::pair<int, int> position);
+
+    /**
+     * Tells granny position
+     *
+     * @return Granny position
+     */
+    std::pair<int, int> get_granny_position();
+
+    /**
+     * Simulate agent moving to specified position
+     *
+     * @param agent Agent to move
+     * @param position Specified position
+     */
+    void go_to(Agent *agent, std::pair<int, int> position);
 
 private:
     unsigned width;
