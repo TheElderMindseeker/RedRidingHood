@@ -56,6 +56,11 @@ public:
     unsigned get_steps();
 
     /**
+     * Tells the agent that his task is completed leading to GRANNY_FOUND result
+     */
+    void set_task_completed();
+
+    /**
      * The return result of function-element find_granny if the granny was successfully found
      */
     static const int GRANNY_FOUND = 0;
@@ -94,6 +99,8 @@ private:
     int score;
 
     std::pair<int, int> position;
+
+    bool task_completed;
 };
 
 

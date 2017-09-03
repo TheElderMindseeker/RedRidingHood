@@ -6,8 +6,14 @@
 #define REDRIDINGHOOD_BEAR_HPP
 
 
-class Bear {
+#include "StaticObject.hpp"
 
+
+class Bear : public StaticObject {
+public:
+    void reaction(Agent *agent) override;
+
+    bool is_in_range(std::pair<int, int> position) override;
 };
 
 

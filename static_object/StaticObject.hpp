@@ -106,7 +106,6 @@ protected:
      */
     StaticObject(std::pair<int, int> position);
 
-private:
     std::pair<int, int> position;
 };
 

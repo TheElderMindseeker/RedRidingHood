@@ -6,8 +6,14 @@
 #define REDRIDINGHOOD_GRANNY_HPP
 
 
-class Granny {
+#include "StaticObject.hpp"
 
+
+class Granny : public StaticObject {
+public:
+    void reaction(Agent *agent) override;
+
+    bool is_in_range(std::pair<int, int> position) override;
 };
 
 

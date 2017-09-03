@@ -6,8 +6,14 @@
 #define REDRIDINGHOOD_WOODCUTTER_HPP
 
 
-class Woodcutter {
+#include "StaticObject.hpp"
 
+
+class Woodcutter : public StaticObject {
+public:
+    void reaction(Agent *agent) override;
+
+    bool is_in_range(std::pair<int, int> position) override;
 };
 
 
