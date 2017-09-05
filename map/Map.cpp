@@ -10,6 +10,13 @@ Map::Map(unsigned width, unsigned height, unsigned seed) : width(width), height(
 }
 
 
+Map::~Map() {
+    for (int i = 0; i < 4; i++)
+        if (objects[i] != nullptr)
+            delete (objects[i]);
+}
+
+
 bool Map::cell_exists(std::pair<int, int> cell) {
     return (0 <= cell.first && cell.first < width && 0 <= cell.second && cell.second < height);
 }
@@ -93,4 +100,12 @@ void Map::go_to(Agent *agent, std::pair<int, int> position) {
         for (int i = 0; i < 4; i++)
             objects[i]->reaction(agent);
     }
+}
+
+
+void Map::optimize_objects() {
+    objects[0] = bear;
+    objects[1] = granny;
+    objects[2] = wolf;
+    objects[3] = woodcutter;
 }

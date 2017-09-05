@@ -8,16 +8,30 @@
 
 #include <utility>
 #include <random>
-#include "agent/Agent.hpp"
-#include "static_object/Bear.hpp"
-#include "static_object/Woodcutter.hpp"
-#include "static_object/Wolf.hpp"
-#include "static_object/Granny.hpp"
+#include "../agent/Agent.hpp"
+#include "../static_object/Bear.hpp"
+#include "../static_object/Woodcutter.hpp"
+#include "../static_object/Wolf.hpp"
+#include "../static_object/Granny.hpp"
 
 
 class Map {
+    friend class MapGenerator;
+
 public:
+    /**
+     * @brief Creates new map with specified width and height
+     *
+     * @param width Map width
+     * @param height Map height
+     * @param seed Random seed for inner needs
+     */
     Map(unsigned width, unsigned height, unsigned seed = 24623);
+
+    /**
+     * @brief Standard destructor
+     */
+    virtual ~Map();
 
     /**
      * Checks if the given cell is present on the map
@@ -131,6 +145,8 @@ public:
     void go_to(Agent *agent, std::pair<int, int> position);
 
 private:
+    void optimize_objects();
+
     unsigned width;
     unsigned height;
 
