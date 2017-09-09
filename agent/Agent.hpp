@@ -7,6 +7,7 @@
 
 
 #include <utility>
+#include <bits/unique_ptr.h>
 #include "../map/Map.hpp"
 
 
@@ -18,7 +19,7 @@ public:
      * @param map Map of the task
      * @return Success code if the granny was found, failure code otherwise
      */
-    virtual int find_granny(Map *map) = 0;
+    virtual int find_granny(std::unique_ptr<Map> map) = 0;
 
     /**
      * Tells current position of agent
@@ -91,6 +92,11 @@ protected:
     Agent(std::pair<int, int> position, int score = 0);
 
     /**
+     * Has Red Riding Hood arrived at Granny's house with 6 berries
+     */
+    bool task_completed = false;
+
+    /**
      * Number of steps taken by the algorithm to solve the task
      */
     unsigned steps;
@@ -99,8 +105,6 @@ private:
     int score;
 
     std::pair<int, int> position;
-
-    bool task_completed;
 };
 
 

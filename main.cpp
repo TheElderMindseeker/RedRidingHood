@@ -12,8 +12,10 @@ int main(int argc, char **argv) {
 
         if (map_1.get() != nullptr)
             std::cout << "Alright, the map was successfully generated!\n";
-        else
+        else {
             std::cout << "There is some problem with map generation\n";
+            continue;
+        }
 
         std::cout << "Granny position: " << map_1->get_granny_position().first
                   << ' ' << map_1->get_granny_position().second << std::endl;

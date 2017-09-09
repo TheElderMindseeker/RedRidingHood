@@ -2,6 +2,7 @@
 // Created by Даниил on 31.08.2017.
 //
 
+#include <iostream>
 #include "Map.hpp"
 #include "../agent/Agent.hpp"
 #include "../static_object/StaticObject.hpp"
@@ -102,6 +103,8 @@ std::pair<int, int> Map::get_granny_position() {
 void Map::go_to(Agent *agent, std::pair<int, int> position) {
     if (cell_exists(position)) {
         agent->set_position(position);
+
+        std::cout << "Agent RRH goes to " << position.first << ' ' << position.second << '\n';
 
         for (int i = 0; i < 4; i++)
             objects[i]->reaction(agent);
