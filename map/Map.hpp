@@ -8,11 +8,14 @@
 
 #include <utility>
 #include <random>
-#include "../agent/Agent.hpp"
-#include "../static_object/Bear.hpp"
-#include "../static_object/Woodcutter.hpp"
-#include "../static_object/Wolf.hpp"
-#include "../static_object/Granny.hpp"
+
+
+class Agent;
+class StaticObject;
+class Bear;
+class Granny;
+class Wolf;
+class Woodcutter;
 
 
 class Map {

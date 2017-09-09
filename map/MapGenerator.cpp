@@ -3,7 +3,13 @@
 //
 
 #include <memory>
+#include <algorithm>
 #include "MapGenerator.hpp"
+#include "../static_object/StaticObject.hpp"
+#include "../static_object/Bear.hpp"
+#include "../static_object/Granny.hpp"
+#include "../static_object/Wolf.hpp"
+#include "../static_object/Woodcutter.hpp"
 
 
 MapGenerator::MapGenerator(unsigned int seed) {
@@ -15,8 +21,8 @@ MapGenerator::~MapGenerator() {}
 
 
 std::unique_ptr<Map> MapGenerator::create_map(unsigned width, unsigned height) {
-    unsigned w = std::min(width, 7);
-    unsigned h = std::min(height, 7);
+    unsigned w = std::min(width, 7u);
+    unsigned h = std::min(height, 7u);
 
     const std::pair<int, int> rrh_position(0, 0);
 
@@ -56,12 +62,14 @@ std::unique_ptr<Map> MapGenerator::create_map(unsigned width, unsigned height) {
         alt_woodcutter_position = std::make_pair(x_distr(random_engine), y_distr(random_engine));
     }
     while (wolf->is_in_range(alt_woodcutter_position) || bear->is_in_range(alt_woodcutter_position)
-           || granny->get_position() == alt_woodcutter_position || alt_woodcutter_position == rrh_position);
+            || granny->get_position() == alt_woodcutter_position || alt_woodcutter_position == rrh_position
+            || woodcutter->get_position() == alt_woodcutter_position);
 
     map->bear = bear;
     map->granny = granny;
     map->wolf = wolf;
     map->woodcutter = woodcutter;
+    map->alt_woodcutter_position = alt_woodcutter_position;
 
     return map;
 }

@@ -3,6 +3,12 @@
 //
 
 #include "Map.hpp"
+#include "../agent/Agent.hpp"
+#include "../static_object/StaticObject.hpp"
+#include "../static_object/Bear.hpp"
+#include "../static_object/Granny.hpp"
+#include "../static_object/Wolf.hpp"
+#include "../static_object/Woodcutter.hpp"
 
 
 Map::Map(unsigned width, unsigned height, unsigned seed) : width(width), height(height), distribution(0, 1) {
