@@ -64,7 +64,7 @@ bool Map::is_wolf(std::pair<int, int> position) {
 
 
 bool Map::is_in_bear_range(std::pair<int, int> position) {
-    return wolf->is_in_range(position);
+    return bear->is_in_range(position);
 }
 
 

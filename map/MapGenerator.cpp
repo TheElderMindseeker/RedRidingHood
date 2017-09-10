@@ -4,6 +4,7 @@
 
 #include <memory>
 #include <algorithm>
+#include <iostream>
 #include "MapGenerator.hpp"
 #include "../static_object/StaticObject.hpp"
 #include "../static_object/Bear.hpp"
@@ -70,6 +71,19 @@ std::unique_ptr<Map> MapGenerator::create_map(unsigned width, unsigned height) {
     map->wolf = wolf;
     map->woodcutter = woodcutter;
     map->alt_woodcutter_position = alt_woodcutter_position;
+
+    std::cout << "This map GRANNY position is [" << granny->get_position().first
+              << ", " << granny->get_position().second << ']' << std::endl;
+    std::cout << "This map WOLF position is [" << wolf->get_position().first
+              << ", " << wolf->get_position().second << ']' << std::endl;
+    std::cout << "This map BEAR position is [" << bear->get_position().first
+              << ", " << bear->get_position().second << ']' << std::endl;
+    std::cout << "This map WOODCUTTER position is [" << woodcutter->get_position().first
+              << ", " << woodcutter->get_position().second << ']' << std::endl;
+    std::cout << "This map ALT_WOODCUTTER position is [" << alt_woodcutter_position.first
+              << ", " << alt_woodcutter_position.second << ']' << std::endl;
+
+    map->optimize_objects();
 
     return map;
 }
