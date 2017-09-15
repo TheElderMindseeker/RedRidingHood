@@ -19,7 +19,7 @@ public:
      * @param map Map of the task
      * @return Success code if the granny was found, failure code otherwise
      */
-    virtual int find_granny(std::unique_ptr<Map> map) = 0;
+    virtual int find_granny(std::unique_ptr<Map> &map) = 0;
 
     /**
      * Tells current position of agent

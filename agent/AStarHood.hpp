@@ -11,7 +11,7 @@
 
 class AStarHood : public Agent {
 public:
-    int find_granny(std::unique_ptr<Map> map) override;
+    int find_granny(std::unique_ptr<Map> &map) override;
 };
 
 

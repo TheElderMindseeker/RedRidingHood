@@ -6,16 +6,13 @@
 #include "BacktrackHood.hpp"
 
 
-BacktrackHood::BacktrackHood() : Agent() {}
+BacktrackHood::BacktrackHood () : Agent() {}
 
 
-BacktrackHood::BacktrackHood(std::pair<int, int> position, int score) : Agent(position, score) {}
+BacktrackHood::BacktrackHood (std::pair<int, int> position, int score) : Agent(position, score) {}
 
 
-int BacktrackHood::find_granny(std::unique_ptr<Map> map) {
-    curr_aim = map->get_granny_position();
-    reset_search();
-
+int BacktrackHood::find_granny (std::unique_ptr<Map> &map) {
     std::vector<std::pair<int, int>> ways;
     while (! task_completed && get_score() > 0 && ! impossible) {
         ways = get_possible_ways(map);
@@ -31,11 +28,11 @@ int BacktrackHood::find_granny(std::unique_ptr<Map> map) {
             }
         }
         else {
-            std::pair<int, int> best = choose_minimal_distance(ways);
+            std::pair<int, int> first = ways.front();
             path.push(get_position());
-            map->go_to(this, best);
+            map->go_to(this, first);
             ++steps;
-            checked.emplace(best, true);
+            checked.insert(first);
         }
     }
 
@@ -43,9 +40,21 @@ int BacktrackHood::find_granny(std::unique_ptr<Map> map) {
         return GRANNY_FOUND;
 
     if (get_score() <= 0)
-        return GRANNY_UNREACHABLE;
+        return FAIL;
 
-    return FAIL;
+    return GRANNY_UNREACHABLE;
+}
+
+
+void BacktrackHood::reset() {
+    set_position (std::pair<int, int> (0, 0));
+    set_score (0);
+    checked.clear();
+    while (! path.empty())
+        path.pop();
+    impossible = false;
+    task_completed = false;
+    steps = 0;
 }
 
 
@@ -65,13 +74,13 @@ std::vector<std::pair<int, int>> BacktrackHood::get_possible_ways(std::unique_pt
 void BacktrackHood::add_if_possible(std::unique_ptr<Map> &map, std::vector<std::pair<int, int>> &ways, std::pair<int, int> position) {
     if (map->cell_exists(position))
         if (path.empty() || (position != path.top()))
-            if (! map->is_in_bear_range(position) && ! map->is_in_wolf_range(position))
-                if (checked.find(position) == checked.end())
-                    ways.push_back(position);
+            if (checked.find(position) == checked.end())
+                if (! map->is_in_bear_range(position) && ! map->is_in_wolf_range(position))
+                    ways.insert (ways.begin(), position);
 }
 
 
-std::pair<int, int> BacktrackHood::choose_minimal_distance(std::vector<std::pair<int, int>> &ways) {
+/*std::pair<int, int> BacktrackHood::choose_minimal_distance(std::vector<std::pair<int, int>> &ways) {
     std::vector<std::pair<int, int>>::iterator iter, best;
     for (iter = ways.begin(), best = iter; iter != ways.end(); iter++) {
         if (distance(*iter, curr_aim) < distance(*best, curr_aim)) {
@@ -97,4 +106,4 @@ void BacktrackHood::reset_search() {
     while (! path.empty())
         path.pop();
     checked.clear();
-}
+}*/

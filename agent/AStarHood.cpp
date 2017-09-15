@@ -6,6 +6,6 @@
 #include "AStarHood.hpp"
 
 
-int AStarHood::find_granny(std::unique_ptr<Map> map) {
+int AStarHood::find_granny(std::unique_ptr<Map> &map) {
     return 0;
 }
