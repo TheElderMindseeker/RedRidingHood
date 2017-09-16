@@ -11,19 +11,37 @@ int main(int argc, char **argv) {
     AStarHood a_rrh(std::pair<int, int> (0, 0), 6);
     BacktrackHood b_rrh (std::pair<int, int> (0, 0), 6);
 
-    for (int i = 0; i < 3; i++) {
+    int astar_results [3] = {0, 0, 0};
+    int backtrack_results [3] = {0, 0, 0};
+
+    for (int i = 0; i < 1000; i++) {
         std::unique_ptr<Map> map = mg.create_map(9, 9);
 
-        std::cout << "The result of Red Riding Hood solving the map: " << a_rrh.find_granny(map) << "\n";
-        std::cout << "The RRH agent made " << a_rrh.get_steps() << " steps\n\n";
+        int astar_res, backtrack_res;
 
-        std::cout << "The result of Red Riding Hood solving the map: " << b_rrh.find_granny(map) << "\n";
-        std::cout << "The RRH agent made " << b_rrh.get_steps() << " steps\n\n";
+        ++astar_results [astar_res = a_rrh.find_granny (map)];
+        ++backtrack_results [backtrack_res = b_rrh.find_granny (map)];
 
-        a_rrh.reset();
-        a_rrh.set_score(6);
-        b_rrh.reset();
-        b_rrh.set_score(6);
+        if (astar_res == Agent::FAIL) {
+            map->draw ();
+            std::cout << '\n';
+        }
+
+        /*if (backtrack_res == Agent::GRANNY_UNREACHABLE) {
+            map->draw ();
+            std::cout << '\n';
+        }*/
+
+        a_rrh.reset ();
+        a_rrh.set_score (6);
+        b_rrh.reset ();
+        b_rrh.set_score (6);
+    }
+
+    std::cout << "\nResults:\n";
+    for (int i = 0; i < 3; i++) {
+        std::cout << astar_results [i] << '\n';
+        std::cout << backtrack_results [i] << '\n';
     }
 
     return 0;

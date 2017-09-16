@@ -4,6 +4,7 @@
 
 #include <bits/unique_ptr.h>
 #include <algorithm>
+#include <iostream>
 #include "AStarHood.hpp"
 
 
@@ -16,8 +17,8 @@ AStarHood::AStarHood (std::pair<int, int> position, int score) : Agent (position
 int AStarHood::find_granny (std::unique_ptr<Map> &map) {
     curr_aim = map->get_granny_position ();
     open_list.insert (get_position ());
-    g_score.emplace (get_position (), 0);
-    h_score.emplace (get_position (), heuristic (get_position (), curr_aim));
+    g_score.insert (std::pair<std::pair<int, int>, int>(get_position (), 0));
+    h_score.insert (std::pair<std::pair<int, int>, int>(get_position (), heuristic (get_position (), curr_aim)));
 
     std::vector<std::pair<int, int>> ways;
     while (! task_completed && get_score() > 0 && ! open_list.empty()) {
@@ -38,25 +39,26 @@ int AStarHood::find_granny (std::unique_ptr<Map> &map) {
             if (open_list.find (*iter) == open_list.end ())
                 open_list.insert (*iter);
 
-            int updated_g_score = g_score.at (get_position ()) + 1 + (map->is_in_bear_range (*iter) ? BEAR_COST : 0);
+            int updated_g_score = g_score.at (get_position ()) + 1;
+
             if (g_score.find (*iter) == g_score.end ())
-                g_score.emplace (*iter, updated_g_score);
+                g_score.insert (std::pair<std::pair<int, int>, int>(*iter, updated_g_score + (map->is_in_bear_range (*iter) ? BEAR_COST : 0)));
             else {
                 if (g_score.at (*iter) > updated_g_score) {
-                    g_score.erase (g_score.find (*iter));
-                    g_score.emplace (*iter, updated_g_score);
+                    g_score.erase (g_score.find (*iter)) != g_score.end ();
+                    g_score.insert (std::pair<std::pair<int, int>, int>(*iter, updated_g_score + (map->is_in_bear_range (*iter) ? BEAR_COST : 0)));
                 }
             }
 
             if (h_score.find (*iter) == h_score.end())
-                h_score.emplace (*iter, heuristic (*iter, curr_aim));
+                h_score.insert (std::pair<std::pair<int, int>, int>(*iter, heuristic (*iter, curr_aim)));
         }
     }
 
     if (task_completed)
         return GRANNY_FOUND;
 
-    if (get_score() <= 0)
+    if (get_score () <= 0)
         return FAIL;
 
     return GRANNY_UNREACHABLE;
@@ -69,7 +71,7 @@ bool AStarHood::operator() (std::pair<int, int> pos_1, std::pair<int, int> pos_2
     if (h_score.find(pos_1) == h_score.end() || h_score.find(pos_2) == h_score.end())
         throw std::runtime_error("h_score does not contain compared position");
 
-    return (g_score.at(pos_1) + h_score.at(pos_1)) < (g_score.at(pos_2) + h_score.at(pos_2));
+    return (g_score.at (pos_1) + h_score.at (pos_1)) < (g_score.at (pos_2) + h_score.at (pos_2));
 }
 
 
@@ -78,6 +80,8 @@ void AStarHood::reset () {
     set_score (0);
     closed_list.clear();
     open_list.clear();
+    g_score.clear ();
+    h_score.clear ();
     task_completed = false;
     steps = 0;
 }
@@ -86,10 +90,10 @@ void AStarHood::reset () {
 void AStarHood::get_possible_ways (std::unique_ptr<Map> &map, std::vector<std::pair<int, int>> &ways) {
     ways.reserve(3);
 
-    add_if_possible(map, ways, map->north(get_position()));
-    add_if_possible(map, ways, map->east(get_position()));
-    add_if_possible(map, ways, map->south(get_position()));
-    add_if_possible(map, ways, map->west(get_position()));
+    add_if_possible(map, ways, map->north(get_position ()));
+    add_if_possible(map, ways, map->east(get_position ()));
+    add_if_possible(map, ways, map->south(get_position ()));
+    add_if_possible(map, ways, map->west(get_position ()));
 }
 
 

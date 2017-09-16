@@ -6,6 +6,7 @@
 #define REDRIDINGHOOD_MAP_HPP
 
 
+#include <iostream>
 #include <utility>
 #include <random>
 
@@ -146,6 +147,13 @@ public:
      * @param position Specified position
      */
     void go_to(Agent *agent, std::pair<int, int> position);
+
+    /**
+     * @brief Draws a map into the stdout using ASCII
+     *
+     * @note This function-element is only for debug purposes
+     */
+    void draw (); // TODO: Make this function-element and others const
 
 private:
     void optimize_objects();

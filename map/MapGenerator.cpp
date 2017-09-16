@@ -22,8 +22,8 @@ MapGenerator::~MapGenerator() {}
 
 
 std::unique_ptr<Map> MapGenerator::create_map(unsigned width, unsigned height) {
-    unsigned w = std::min(width, 7u);
-    unsigned h = std::min(height, 7u);
+    unsigned w = std::max(width, 7u);
+    unsigned h = std::max(height, 7u);
 
     const std::pair<int, int> rrh_position(0, 0);
 
@@ -72,11 +72,11 @@ std::unique_ptr<Map> MapGenerator::create_map(unsigned width, unsigned height) {
     map->woodcutter = woodcutter;
     map->alt_woodcutter_position = alt_woodcutter_position;
 
-    std::cout << "Bear position: [" << bear->get_position().first << ", " << bear->get_position().second << "]\n";
+    /*std::cout << "Bear position: [" << bear->get_position().first << ", " << bear->get_position().second << "]\n";
     std::cout << "Granny position: [" << granny->get_position().first << ", " << granny->get_position().second << "]\n";
     std::cout << "Wolf position: [" << wolf->get_position().first << ", " << wolf->get_position().second << "]\n";
     std::cout << "Woodcutter position: [" << woodcutter->get_position().first << ", " << woodcutter->get_position().second << "]\n";
-    std::cout << "False Woodcutter position: [" << alt_woodcutter_position.first << ", " << alt_woodcutter_position.second << "]\n\n";
+    std::cout << "False Woodcutter position: [" << alt_woodcutter_position.first << ", " << alt_woodcutter_position.second << "]\n\n";*/
 
     map->optimize_objects();
 

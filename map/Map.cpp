@@ -104,10 +104,37 @@ void Map::go_to(Agent *agent, std::pair<int, int> position) {
     if (cell_exists(position)) {
         agent->set_position(position);
 
-        std::cout << "Agent RRH goes to " << position.first << ' ' << position.second << '\n';
+//        std::cout << "Agent RRH goes to " << position.first << ' ' << position.second << '\n';
 
         for (int i = 0; i < 4; i++)
             objects[i]->reaction(agent);
+    }
+}
+
+
+void Map::draw () {
+    for (int y = 0; y < height; y++) {
+        for (int x = 0; x < width; x++) {
+            std::pair<int, int> curr_pos (x, y);
+
+            if (is_granny (curr_pos))
+                std::cout << 'G';
+            else if (is_bear (curr_pos))
+                std::cout << 'B';
+            else if (is_wolf (curr_pos))
+                std::cout << 'W';
+            else if (is_woodcutter (curr_pos))
+                std::cout << 'C';
+            else if (curr_pos == alt_woodcutter_position)
+                std::cout << 'F';
+            else if (is_in_wolf_range (curr_pos))
+                std::cout << 'X';
+            else if (is_in_bear_range (curr_pos))
+                std::cout << '^';
+            else
+                std::cout << '_';
+        }
+        std::cout << '\n';
     }
 }
 
