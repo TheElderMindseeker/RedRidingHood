@@ -6,10 +6,10 @@
 #include "BacktrackHood.hpp"
 
 
-BacktrackHood::BacktrackHood () : Agent() {}
+BacktrackHood::BacktrackHood () : Agent () {}
 
 
-BacktrackHood::BacktrackHood (std::pair<int, int> position, int score) : Agent(position, score) {}
+BacktrackHood::BacktrackHood (std::pair<int, int> position, int score) : Agent (position, score) {}
 
 
 int BacktrackHood::find_granny (std::unique_ptr<Map> &map) {
@@ -46,7 +46,7 @@ int BacktrackHood::find_granny (std::unique_ptr<Map> &map) {
 }
 
 
-void BacktrackHood::reset() {
+void BacktrackHood::reset () {
     set_position (std::pair<int, int> (0, 0));
     set_score (0);
     checked.clear();
