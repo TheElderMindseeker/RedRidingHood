@@ -36,6 +36,11 @@ unsigned Agent::get_steps() {
 }
 
 
+void Agent::reset_steps() {
+    steps = 0;
+}
+
+
 void Agent::set_task_completed() {
     task_completed = true;
 }

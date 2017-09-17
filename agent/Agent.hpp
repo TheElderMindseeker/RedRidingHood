@@ -58,6 +58,11 @@ public:
     unsigned get_steps();
 
     /**
+     * Reset steps counter to zero
+     */
+    void reset_steps();
+
+    /**
      * Tells the agent that his task is completed leading to GRANNY_FOUND result
      */
     void set_task_completed();
