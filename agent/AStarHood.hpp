@@ -54,6 +54,20 @@ public:
 
 private:
     /**
+     * @brief Update current search target if needed
+     *
+     * @param map Map currently being solved
+     */
+    void update_state (std::unique_ptr<Map> &map);
+
+    /**
+     * @brief Try to identify real position of woodcutter
+     *
+     * @param map Map currently being solved
+     */
+    void check_woodcutter (std::unique_ptr<Map> &map);
+
+    /**
      * @brief Checks the neighbouring cells for the possibility of movement to them
      *
      * @param map Map on which agent is acting
@@ -79,7 +93,14 @@ private:
      *
      * @return Estimated distance from initial position to destination
      */
-    int heuristic (std::pair<int, int> position, std::pair<int, int> aim);
+    int heuristic (std::pair<int, int> position, std::pair<int, int> aim) const;
+
+    /**
+     * @brief Resets some parameters of agent
+     *
+     * @note This function-element is used to change search target
+     */
+    void partial_reset ();
 
     std::set<std::pair<int, int>> closed_list;
 
@@ -91,7 +112,13 @@ private:
 
     std::pair<int, int> curr_aim;
 
-    static const int BEAR_COST = 1000;
+    bool searching_woodcutter = false;
+
+    std::pair<int, int> real_woodcutter;
+
+    bool woodcutter_known = false;
+
+    static const int BEAR_COST = 10000;
 };
 
 
