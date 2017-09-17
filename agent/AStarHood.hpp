@@ -26,8 +26,25 @@ public:
      */
     AStarHood(std::pair<int, int> position, int score = 0);
 
+    /**
+     * Solve the task of fetching 6 berries to granny on provided map using A* search algorithm
+     *
+     * @param map Map of the task
+     *
+     * @return Success code if the granny was found, failure code otherwise
+     */
     int find_granny(std::unique_ptr<Map> &map) override;
 
+    /**
+     * @brief Comparison of two position using f() = g() + h() heuristics
+     *
+     * @note This operator is used to compare positions while searching for current minimal in open list
+     *
+     * @param pos_1 First position
+     * @param pos_2 Second position
+     *
+     * @return True if first position is less than the second, false otherwise
+     */
     bool operator () (std::pair<int, int> pos_1, std::pair<int, int> pos_2);
 
     /**
@@ -45,6 +62,13 @@ private:
      */
     void get_possible_ways (std::unique_ptr<Map> &map, std::vector<std::pair<int, int>> &ways);
 
+    /**
+     * Adds position to the possible ways if the position exists and not affected by the wolf
+     *
+     * @param map Map currently being solved
+     * @param ways Vector of possible positions
+     * @param position Position to add
+     */
     void add_if_possible (std::unique_ptr<Map> &map, std::vector<std::pair<int, int>> &ways, std::pair<int, int> position);
 
     /**

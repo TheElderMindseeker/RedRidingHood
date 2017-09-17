@@ -13,7 +13,7 @@
 class StaticObject {
 public:
     /**
-     * Defines the reation of static object on the agent
+     * Defines the reaction of static object on the agent
      *
      * @param agent The agent to check reaction against
      */
@@ -35,16 +35,6 @@ public:
     void set_position(std::pair<int, int> new_pos);
 
     /**
-     * @deprecated Use the other overloaded function-element instead
-     *
-     * Set the position of static object
-     *
-     * @param x x component
-     * @param y y component
-     */
-    void set_position(int x, int y);
-
-    /**
      * Set the x component of static object position
      *
      * @param x x component
@@ -64,34 +54,6 @@ public:
      * @return Position as (x, y)
      */
     std::pair<int, int> get_position();
-
-    /**
-     * @deprecated Use the other overloaded function-element
-     *
-     * Get the position of static object
-     *
-     * @param x variable to store x component
-     * @param y variable to store y component
-     */
-    void get_position(int &x, int &y);
-
-    /**
-     * @deprecated Use get_position instead
-     *
-     * Get the x component of static object position
-     *
-     * @return x component
-     */
-    int get_x();
-
-    /**
-     * @deprecated Use get_position instead
-     *
-     * Get the y component of static object position
-     *
-     * @return y component
-     */
-    int get_y();
 
 protected:
     /**

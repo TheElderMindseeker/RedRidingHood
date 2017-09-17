@@ -6,7 +6,7 @@
 #include <algorithm>
 #include <iostream>
 #include "MapGenerator.hpp"
-#include "../static_object/StaticObject.hpp"
+#include "../static_object/StaticAgent.hpp"
 #include "../static_object/Bear.hpp"
 #include "../static_object/Granny.hpp"
 #include "../static_object/Wolf.hpp"
@@ -22,6 +22,7 @@ MapGenerator::~MapGenerator() {}
 
 
 std::unique_ptr<Map> MapGenerator::create_map(unsigned width, unsigned height) {
+    // Make sure the map is not less than 7x7
     unsigned w = std::max(width, 7u);
     unsigned h = std::max(height, 7u);
 
@@ -37,6 +38,9 @@ std::unique_ptr<Map> MapGenerator::create_map(unsigned width, unsigned height) {
     Woodcutter *woodcutter = new Woodcutter;
     std::pair<int, int> alt_woodcutter_position;
 
+    // This is very bad and I know it
+    // But to do it well-done a lot of work is needed which is not
+    // necessary for a relatively small assignment project
     do {
         bear->set_position(std::make_pair(x_distr(random_engine), y_distr(random_engine)));
     }
@@ -71,12 +75,6 @@ std::unique_ptr<Map> MapGenerator::create_map(unsigned width, unsigned height) {
     map->wolf = wolf;
     map->woodcutter = woodcutter;
     map->alt_woodcutter_position = alt_woodcutter_position;
-
-    /*std::cout << "Bear position: [" << bear->get_position().first << ", " << bear->get_position().second << "]\n";
-    std::cout << "Granny position: [" << granny->get_position().first << ", " << granny->get_position().second << "]\n";
-    std::cout << "Wolf position: [" << wolf->get_position().first << ", " << wolf->get_position().second << "]\n";
-    std::cout << "Woodcutter position: [" << woodcutter->get_position().first << ", " << woodcutter->get_position().second << "]\n";
-    std::cout << "False Woodcutter position: [" << alt_woodcutter_position.first << ", " << alt_woodcutter_position.second << "]\n\n";*/
 
     map->optimize_objects();
 

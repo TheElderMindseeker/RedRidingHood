@@ -5,7 +5,7 @@
 #include <iostream>
 #include "Map.hpp"
 #include "../agent/Agent.hpp"
-#include "../static_object/StaticObject.hpp"
+#include "../static_object/StaticAgent.hpp"
 #include "../static_object/Bear.hpp"
 #include "../static_object/Granny.hpp"
 #include "../static_object/Wolf.hpp"
@@ -24,56 +24,56 @@ Map::~Map() {
 }
 
 
-bool Map::cell_exists(std::pair<int, int> cell) {
+bool Map::cell_exists(std::pair<int, int> cell) const {
     return (0 <= cell.first && cell.first < width && 0 <= cell.second && cell.second < height);
 }
 
 
-std::pair<int, int> Map::north(std::pair<int, int> cell) {
+std::pair<int, int> Map::north(std::pair<int, int> cell) const {
     cell.second -= 1;
     return cell;
 }
 
 
-std::pair<int, int> Map::east(std::pair<int, int> cell) {
+std::pair<int, int> Map::east(std::pair<int, int> cell) const {
     cell.first += 1;
     return cell;
 }
 
 
-std::pair<int, int> Map::south(std::pair<int, int> cell) {
+std::pair<int, int> Map::south(std::pair<int, int> cell) const {
     cell.second += 1;
     return cell;
 }
 
 
-std::pair<int, int> Map::west(std::pair<int, int> cell) {
+std::pair<int, int> Map::west(std::pair<int, int> cell) const {
     cell.first -= 1;
     return cell;
 }
 
 
-bool Map::is_in_wolf_range(std::pair<int, int> position) {
+bool Map::is_in_wolf_range(std::pair<int, int> position) const {
     return wolf->is_in_range(position);
 }
 
 
-bool Map::is_wolf(std::pair<int, int> position) {
+bool Map::is_wolf(std::pair<int, int> position) const {
     return (position == wolf->get_position());
 }
 
 
-bool Map::is_in_bear_range(std::pair<int, int> position) {
+bool Map::is_in_bear_range(std::pair<int, int> position) const {
     return bear->is_in_range(position);
 }
 
 
-bool Map::is_bear(std::pair<int, int> position) {
+bool Map::is_bear(std::pair<int, int> position) const {
     return (position == bear->get_position());
 }
 
 
-bool Map::is_woodcutter(std::pair<int, int> position) {
+bool Map::is_woodcutter(std::pair<int, int> position) const {
     return (position == woodcutter->get_position());
 }
 
@@ -90,17 +90,17 @@ void Map::get_possible_woodcutter_positions(std::pair<int, int> &pos_1, std::pai
 }
 
 
-bool Map::is_granny(std::pair<int, int> position) {
+bool Map::is_granny(std::pair<int, int> position) const {
     return (position == granny->get_position());
 }
 
 
-std::pair<int, int> Map::get_granny_position() {
+std::pair<int, int> Map::get_granny_position() const {
     return granny->get_position();
 }
 
 
-void Map::go_to(Agent *agent, std::pair<int, int> position) {
+void Map::go_to(Agent *agent, std::pair<int, int> position) const {
     if (cell_exists(position)) {
         agent->set_position(position);
 
@@ -112,7 +112,7 @@ void Map::go_to(Agent *agent, std::pair<int, int> position) {
 }
 
 
-void Map::draw () {
+void Map::draw () const {
     for (int y = 0; y < height; y++) {
         for (int x = 0; x < width; x++) {
             std::pair<int, int> curr_pos (x, y);

@@ -15,19 +15,24 @@ BacktrackHood::BacktrackHood (std::pair<int, int> position, int score) : Agent (
 int BacktrackHood::find_granny (std::unique_ptr<Map> &map) {
     std::vector<std::pair<int, int>> ways;
     while (! task_completed && get_score() > 0 && ! impossible) {
+        // Observe neighbouring cells we can go to
         ways = get_possible_ways(map);
 
         if (ways.empty()) {
+            // If ways is empty agent is either stuck in dead end or returned to the starting position
             if (path.empty()) {
+                // If agent is in starting position, agent did not manage to find granny
                 impossible = true;
             }
             else {
+                // Otherwise we backtrack
                 map->go_to(this, path.top());
                 ++steps;
                 path.pop();
             }
         }
         else {
+            // Investigate one of the possible positions
             std::pair<int, int> first = ways.front();
             path.push(get_position());
             map->go_to(this, first);
@@ -42,6 +47,7 @@ int BacktrackHood::find_granny (std::unique_ptr<Map> &map) {
     if (get_score() <= 0)
         return FAIL;
 
+    // If agent is not failed but has not found granny -- granny is unreachable
     return GRANNY_UNREACHABLE;
 }
 

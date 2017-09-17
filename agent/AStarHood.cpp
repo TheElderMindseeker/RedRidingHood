@@ -15,6 +15,7 @@ AStarHood::AStarHood (std::pair<int, int> position, int score) : Agent (position
 
 
 int AStarHood::find_granny (std::unique_ptr<Map> &map) {
+    // Preset current aim to granny, insert starting position to open list and calculate its g() and h()
     curr_aim = map->get_granny_position ();
     open_list.insert (get_position ());
     g_score.insert (std::pair<std::pair<int, int>, int>(get_position (), 0));
@@ -22,6 +23,7 @@ int AStarHood::find_granny (std::unique_ptr<Map> &map) {
 
     std::vector<std::pair<int, int>> ways;
     while (! task_completed && get_score() > 0 && ! open_list.empty()) {
+        // Find next possible position with minimal weight and go to it
         auto step_iter = std::min_element (open_list.begin (), open_list.end (), *this);
         std::pair<int, int> next_step = *step_iter;
         open_list.erase (next_step);
@@ -29,16 +31,19 @@ int AStarHood::find_granny (std::unique_ptr<Map> &map) {
         map->go_to (this, next_step);
         ++steps;
 
+        // Observe neighbouring cells and add them to open list if possible
         ways.clear ();
         get_possible_ways (map, ways);
 
         for (std::vector<std::pair<int, int>>::iterator iter = ways.begin(); iter != ways.end(); iter++) {
+            // We are not dealing with positions in closed list
             if (closed_list.find (*iter) != closed_list.end ())
                 continue;
 
             if (open_list.find (*iter) == open_list.end ())
                 open_list.insert (*iter);
 
+            // Try to update g() for the position currently being examined
             int updated_g_score = g_score.at (get_position ()) + 1;
 
             if (g_score.find (*iter) == g_score.end ())
@@ -50,6 +55,7 @@ int AStarHood::find_granny (std::unique_ptr<Map> &map) {
                 }
             }
 
+            // Set up h() for newly discovered positions
             if (h_score.find (*iter) == h_score.end())
                 h_score.insert (std::pair<std::pair<int, int>, int>(*iter, heuristic (*iter, curr_aim)));
         }
@@ -61,6 +67,7 @@ int AStarHood::find_granny (std::unique_ptr<Map> &map) {
     if (get_score () <= 0)
         return FAIL;
 
+    // If agent is not failed but has not found granny -- granny is unreachable
     return GRANNY_UNREACHABLE;
 }
 

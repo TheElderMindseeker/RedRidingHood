@@ -41,81 +41,91 @@ public:
      * Checks if the given cell is present on the map
      *
      * @param cell Position of cell
+     *
      * @return True, if cell exists, false otherwise
      */
-    bool cell_exists(std::pair<int, int> cell);
+    bool cell_exists(std::pair<int, int> cell) const;
 
     /**
      * Calculates cell position which is to the north of the given
      *
      * @param cell Given cell
+     *
      * @return Cell which is to the north of the given
      */
-    std::pair<int, int> north(std::pair<int, int> cell);
+    std::pair<int, int> north(std::pair<int, int> cell) const;
 
     /**
      * Calculates cell position which is to the east of the given
      *
      * @param cell Given cell
+     *
      * @return Cell which is to the east of the given
      */
-    std::pair<int, int> east(std::pair<int, int> cell);
+    std::pair<int, int> east(std::pair<int, int> cell) const;
 
     /**
      * Calculates cell position which is to the south of the given
      *
      * @param cell Given cell
+     *
      * @return Cell which is to the south of the given
      */
-    std::pair<int, int> south(std::pair<int, int> cell);
+    std::pair<int, int> south(std::pair<int, int> cell) const;
 
     /**
      * Calculates cell position which is to the west of the given
      *
      * @param cell Given cell
+     *
      * @return Cell which is to the west of the given
      */
-    std::pair<int, int> west(std::pair<int, int> cell);
+    std::pair<int, int> west(std::pair<int, int> cell) const;
 
     /**
      * Checks if provided position is in wolf's effect range
      *
      * @param position Provided position
+     *
      * @return True if the position is in wolf's range, false otherwise
      */
-    bool is_in_wolf_range(std::pair<int, int> position);
+    bool is_in_wolf_range(std::pair<int, int> position) const;
 
     /**
      * Checks whether wolf is in provided position
      *
      * @param position Provided position
+     *
      * @return True if wolf is in the position, false otherwise
      */
-    bool is_wolf(std::pair<int, int> position);
+    bool is_wolf(std::pair<int, int> position) const;
 
     /**
      * Checks whether provided position is in bear's range
      *
      * @param position Provided position
+     *
      * @return True if the position is in bear's range, false otherwise
      */
-    bool is_in_bear_range(std::pair<int, int> position);
+    bool is_in_bear_range(std::pair<int, int> position) const;
 
     /**
      * Checks if the bear is in provided position
      *
      * @param position Provided position
+     *
      * @return True if bear is in the position, false otherwise
      */
-    bool is_bear(std::pair<int, int> position);
+    bool is_bear(std::pair<int, int> position) const;
 
     /**
      * Checks if woodcutter is in provided position
      *
      * @param position Provided position
+     *
      * @return True if woodcutter is in the position, false otherwise
      */
-    bool is_woodcutter(std::pair<int, int> position);
+    bool is_woodcutter(std::pair<int, int> position) const;
 
     /**
      * Tells two possible woodcutter positions
@@ -129,16 +139,17 @@ public:
      * Checks if granny is in provided position
      *
      * @param position Provided position
+     *
      * @return True if granny is in the position, false otherwise
      */
-    bool is_granny(std::pair<int, int> position);
+    bool is_granny(std::pair<int, int> position) const;
 
     /**
      * Tells granny position
      *
      * @return Granny position
      */
-    std::pair<int, int> get_granny_position();
+    std::pair<int, int> get_granny_position() const;
 
     /**
      * Simulate agent moving to specified position
@@ -146,16 +157,19 @@ public:
      * @param agent Agent to move
      * @param position Specified position
      */
-    void go_to(Agent *agent, std::pair<int, int> position);
+    void go_to(Agent *agent, std::pair<int, int> position) const;
 
     /**
      * @brief Draws a map into the stdout using ASCII
      *
      * @note This function-element is only for debug purposes
      */
-    void draw (); // TODO: Make this function-element and others const
+    void draw () const;
 
 private:
+    /**
+     * Optimize static agents for inner use
+     */
     void optimize_objects();
 
     unsigned width;

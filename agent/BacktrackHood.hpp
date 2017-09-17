@@ -28,9 +28,10 @@ public:
     BacktrackHood(std::pair<int, int> position, int score = 0);
 
     /**
-     * @brief Function that tries to solve the given map leading agent to granny
+     * @brief Function that tries to solve the given map leading agent to granny using backtracking strategy
      *
      * @param map Given map
+     *
      * @return One of the search results (granny found, granny unreachable, or fail if the agent dies)
      */
     int find_granny(std::unique_ptr<Map> &map) override;
@@ -45,25 +46,24 @@ private:
      * @brief Checks the neighbouring cells for the possibility of movement to them
      *
      * @param map Map on which agent is acting
+     *
      * @return Vector of possible positions
      */
     std::vector<std::pair<int, int>> get_possible_ways(std::unique_ptr<Map> &map);
 
+    /**
+     * Adds position to the possible ways if the position exists and not affected by the wolf
+     *
+     * @param map Map currently being solved
+     * @param position Position to add
+     *
+     * @return Vector with possibly added position
+     */
     void add_if_possible(std::unique_ptr<Map> &map, std::vector<std::pair<int, int>> &ways, std::pair<int, int> position);
-
-    /*std::pair<int, int> choose_minimal_distance(std::vector<std::pair<int, int>> &ways);
-
-    int distance(std::pair<int, int> source_position, std::pair<int, int> target_position);
-
-    void set_new_aim(std::pair<int, int> aim);
-
-    void reset_search();*/
 
     std::set<std::pair<int, int>> checked;
 
     std::stack<std::pair<int, int>> path;
-
-//    std::pair<int, int> curr_aim;
 
     bool impossible = false;
 };

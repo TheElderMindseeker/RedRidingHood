@@ -17,6 +17,7 @@ public:
      * Solve the task of fetching 6 berries to granny on provided map
      *
      * @param map Map of the task
+     *
      * @return Success code if the granny was found, failure code otherwise
      */
     virtual int find_granny(std::unique_ptr<Map> &map) = 0;
@@ -102,8 +103,14 @@ protected:
     unsigned steps;
 
 private:
+    /**
+     * Current number of score of agent
+     */
     int score;
 
+    /**
+     * Current agent position
+     */
     std::pair<int, int> position;
 };
 
